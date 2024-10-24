@@ -10,10 +10,10 @@ import Foundation
 
 /// Represents unique API endpoint
 @frozen enum RMEndpoint: String{
-    /// Endpoint to get location into
-    case Location
-    /// Endpoint to get character into
-    case Character
-    /// Endpoint to get episode into
-    case Episode
+    /// Endpoint to get character info
+        case character
+        /// Endpoint to get location info
+        case location
+        /// Endpoint to get episode info
+        case episode
 }
