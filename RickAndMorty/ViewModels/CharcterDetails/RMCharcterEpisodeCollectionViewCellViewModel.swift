@@ -5,15 +5,16 @@
 //  Created by  Ghadi on 30/10/2024.
 //
 
-import Foundation
+import UIKit
 
 protocol RMEdisodeDataRender {
     var name: String {get}
     var air_date: String {get}
     var episode: String {get}
 }
-final class RMCharcterEpisodeCollectionViewCellViewModel{
-    
+final class RMCharcterEpisodeCollectionViewCellViewModel: Hashable, Equatable{
+ 
+    public let borderColor: UIColor
     private let episodeDataUrl: URL?
     private var isFetching = false
     private var dataBlock: ((RMEdisodeDataRender) -> Void)?
@@ -26,8 +27,9 @@ final class RMCharcterEpisodeCollectionViewCellViewModel{
         }
     }
     
-    init(episodeDataUrl: URL?){
+    init(episodeDataUrl: URL?, borderColor: UIColor = .systemBlue) {
         self.episodeDataUrl = episodeDataUrl
+        self.borderColor = borderColor
     }
     
     public func registerForData(_ block: @escaping (RMEdisodeDataRender) -> Void){
@@ -57,4 +59,13 @@ final class RMCharcterEpisodeCollectionViewCellViewModel{
            }
           
        }
+    
+    func hash(into hasher: inout Hasher) {
+            hasher.combine(self.episodeDataUrl?.absoluteString ?? "")
+        }
+
+        static func == (lhs: RMCharcterEpisodeCollectionViewCellViewModel, rhs: RMCharcterEpisodeCollectionViewCellViewModel) -> Bool {
+            return lhs.hashValue == rhs.hashValue
+        }
+    
 }
